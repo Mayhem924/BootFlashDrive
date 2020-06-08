@@ -8,7 +8,17 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Page.TopAppBar>
+        <CommandBar VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton Icon="Refresh" Label="Refresh List" Click="RefreshList"/>
+            <AppBarButton Icon="Cancel" Label="AppBarButton"/>
+        </CommandBar>
+    </Page.TopAppBar>
 
+    <Grid>
+        <ListView x:Name="listView" Height="400" Width="250" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,50,0,0"/>
     </Grid>
 </Page>

@@ -13,8 +13,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace BootFlashDrive
 {
     /// <summary>
@@ -25,6 +23,18 @@ namespace BootFlashDrive
         public MainPage()
         {
             this.InitializeComponent();
+            RefreshList(this, null);
+        }
+
+        private void RefreshList(object sender, RoutedEventArgs e)
+        {
+            listView.Items.Clear();
+            string[] Drives = Environment.GetLogicalDrives();
+            
+            foreach (string s in Drives)
+            {
+                listView.Items.Add(s);
+            }
         }
     }
 }
