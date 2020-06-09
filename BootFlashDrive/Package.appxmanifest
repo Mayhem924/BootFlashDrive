@@ -4,7 +4,8 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  IgnorableNamespaces="uap mp">
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap mp rescap">
 
   <Identity
     Name="9924836e-d7cf-493b-82f1-df238f8fb7c7"
@@ -14,7 +15,7 @@
   <mp:PhoneIdentity PhoneProductId="9924836e-d7cf-493b-82f1-df238f8fb7c7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>BootFlashDrive</DisplayName>
+    <DisplayName>Boot Flash Drive</DisplayName>
     <PublisherDisplayName>fenya</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -32,7 +33,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="BootFlashDrive.App">
       <uap:VisualElements
-        DisplayName="BootFlashDrive"
+        DisplayName="Boot Flash Drive"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="BootFlashDrive"
@@ -45,5 +46,7 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
+    <uap:Capability Name="removableStorage"/>
+    <rescap:Capability Name="broadFileSystemAccess"/>
   </Capabilities>
 </Package>

@@ -20,20 +20,52 @@ namespace BootFlashDrive
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        List<Drive> Drives { get; set; }
+
         public MainPage()
         {
             this.InitializeComponent();
+            Drives = new List<Drive>();
             RefreshList(this, null);
         }
 
-        private void RefreshList(object sender, RoutedEventArgs e)
+        private async void RefreshList(object sender, RoutedEventArgs e)
         {
             listView.Items.Clear();
-            string[] Drives = Environment.GetLogicalDrives();
+
+            DriveInfo[] drives = DriveInfo.GetDrives();
+            Random random = new Random();
             
-            foreach (string s in Drives)
+            foreach (var localDrive in drives)
             {
-                listView.Items.Add(s);
+                try
+                {
+                    if (true) // IsReady issue
+                    {
+                        //var drive = new Drive(localDrive.Name, localDrive.DriveFormat, localDrive.TotalFreeSpace);
+                        var drive = new Drive(localDrive.Name, localDrive.DriveType.ToString(), "NTFS", random.Next(100));
+                        Drives.Add(drive);
+                        listView.Items.Add(drive); 
+                    }
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    ContentDialog deleteFileDialog = new ContentDialog()
+                    {
+                        Title = "Ошибка при доступе к файловой системе",
+                        Content = ex.Message,
+                        PrimaryButtonText = "Пропустить",
+                        SecondaryButtonText = "Завершить"
+                    };
+
+                    ContentDialogResult result = await deleteFileDialog.ShowAsync();
+
+                    if (result == ContentDialogResult.Secondary)
+                    {
+                        break;
+                    }
+                }
+                
             }
         }
     }
