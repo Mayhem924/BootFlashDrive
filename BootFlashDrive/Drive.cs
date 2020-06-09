@@ -15,7 +15,18 @@ namespace BootFlashDrive
 
         public Drive(string title, string type, string filesystem, int freeSpace)
         {
-            Title = title;
+            switch (type)
+            {
+                case "Fixed":
+                    Title = "Local drive: " + title;
+                    break;
+                case "Removable":
+                    Title = "USB storage: " + title;
+                    break;
+                default:
+                    break;
+            }
+
             Type = type;
             Filesystem = filesystem;
             FreeSpace = freeSpace;

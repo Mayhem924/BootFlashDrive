@@ -3,3 +3,5 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+/.vs/BootFlashDrive/v16/.suo
+/BootFlashDrive/BootFlashDrive.csproj.user
