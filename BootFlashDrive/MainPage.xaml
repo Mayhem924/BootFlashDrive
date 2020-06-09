@@ -4,12 +4,12 @@
     xmlns:local="using:BootFlashDrive"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Custom="using:System"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     x:Class="BootFlashDrive.MainPage"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Page.TopAppBar>
+    
+    <!--<Page.TopAppBar>
         <CommandBar VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <CommandBar.Content>
                 <Grid/>
@@ -17,27 +17,29 @@
             <AppBarButton Icon="Refresh" Label="Refresh List" Click="RefreshList"/>
             <AppBarButton Icon="Cancel" Label="AppBarButton"/>
         </CommandBar>
-    </Page.TopAppBar>
+    </Page.TopAppBar> -->
 
     <Grid>
-        <ListView x:Name="listView" Height="500" Width="300" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,50,0,0">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:Drive">
-                    <StackPanel Orientation="Vertical">
-                        <!-- <Ellipse Height="35" Width="35" VerticalAlignment="Center">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="Placeholder.png"/>
-                            </Ellipse.Fill>
-                        </Ellipse> -->
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,5,0,0">
-                            <TextBlock Text="{x:Bind Path=Title}" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}" />
-                            <TextBlock Text="{x:Bind Path=Type}" Margin="12,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
+        <muxc:NavigationView Header="Header Example" IsTitleBarAutoPaddingEnabled="False">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem Content="Главная" Icon="Home" x:Name="Home" />
+                <muxc:NavigationViewItem Content="Загрузить образ" Icon="Download" x:Name="Download" />
+            </muxc:NavigationView.MenuItems>
+            
+            <ListView x:Name="listView" Height="500" Width="300" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,50,0,0">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Drive">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
+                                <TextBlock Text="{x:Bind Path=Title}" Margin="0,0,0,0" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}" />
+                                <TextBlock Text="{x:Bind Path=Type}" Margin="20,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
+                            </StackPanel>
+                            <TextBlock Text="{x:Bind Path=Filesystem}" Margin="0,5,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
+                            <ProgressBar CornerRadius="0" Margin="0,5,0,8" Value="{x:Bind Path=FreeSpace}" Maximum="100" Width="200" Height="7"/>
                         </StackPanel>
-                        <TextBlock Text="{x:Bind Path=Filesystem}" Margin="0,5,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
-                        <ProgressBar Margin="0,5,0,8" Value="{x:Bind Path=FreeSpace}" Maximum="100" Width="200" Height="7"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </muxc:NavigationView>
     </Grid>
 </Page>
