@@ -20,7 +20,7 @@
     </Page.TopAppBar> -->
 
     <Grid>
-        <muxc:NavigationView Header="Header Example" IsTitleBarAutoPaddingEnabled="False">
+        <muxc:NavigationView Header="Список устройств" IsTitleBarAutoPaddingEnabled="True">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Content="Главная" Icon="Home" x:Name="Home" />
                 <muxc:NavigationViewItem Content="Загрузить образ" Icon="Download" x:Name="Download" />
@@ -35,7 +35,7 @@
                                 <TextBlock Text="{x:Bind Path=Type}" Margin="20,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
                             </StackPanel>
                             <TextBlock Text="{x:Bind Path=Filesystem}" Margin="0,5,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
-                            <ProgressBar CornerRadius="0" Margin="0,5,0,8" Value="{x:Bind Path=FreeSpace}" Maximum="100" Width="200" Height="7"/>
+                            <ProgressBar CornerRadius="0" Margin="0,5,0,8" Value="{x:Bind Path=FreeSpace}" Maximum="100" Width="300" Height="5"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

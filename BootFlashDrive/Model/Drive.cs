@@ -8,10 +8,10 @@ namespace BootFlashDrive
 {
     public class Drive
     {
-        public string Title { get; set; }
-        public string Type { get; set; }
-        public string Filesystem { get; set; }
-        public int FreeSpace { get; set; }
+        public string Title { get; private set; }
+        public string Type { get; private set; }
+        public string Filesystem { get; private set; }
+        public int FreeSpace { get; private set; }
 
         public Drive(string title, string type, string filesystem, int freeSpace)
         {
@@ -22,8 +22,6 @@ namespace BootFlashDrive
                     break;
                 case "Removable":
                     Title = "USB storage: " + title;
-                    break;
-                default:
                     break;
             }
 
