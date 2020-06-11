@@ -8,38 +8,58 @@
     x:Class="BootFlashDrive.MainPage"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    
-    <!--<Page.TopAppBar>
-        <CommandBar VerticalAlignment="Top" HorizontalAlignment="Stretch">
-            <CommandBar.Content>
-                <Grid/>
-            </CommandBar.Content>
-            <AppBarButton Icon="Refresh" Label="Refresh List" Click="RefreshList"/>
-            <AppBarButton Icon="Cancel" Label="AppBarButton"/>
-        </CommandBar>
-    </Page.TopAppBar> -->
+
+    <Page.Resources>
+        <Thickness x:Key="NavigationViewHeaderMargin">30,42,0,0</Thickness>
+    </Page.Resources>
 
     <Grid>
-        <muxc:NavigationView Header="Список устройств" IsTitleBarAutoPaddingEnabled="True">
+        <Rectangle
+            x:Name="XboxContentSafeRect"
+            Width="48"
+            Fill="{ThemeResource NavigationViewDefaultPaneBackground}"
+            Visibility="Collapsed" Canvas.ZIndex="0" />
+
+        <Border IsHitTestVisible="True"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"
+                Canvas.ZIndex="1">
+            
+            <TextBlock x:Name="AppTitle"
+                       Text="{x:Bind GetAppTitleFromSystem()}"
+                       VerticalAlignment="Center"
+                       FontSize="12"
+                       Margin="48,12,0,0"
+                       Style="{StaticResource CaptionTextBlockStyle}" />
+        </Border>
+
+        <muxc:NavigationView Header="Список устройств" IsTitleBarAutoPaddingEnabled="False">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Content="Главная" Icon="Home" x:Name="Home" />
                 <muxc:NavigationViewItem Content="Загрузить образ" Icon="Download" x:Name="Download" />
             </muxc:NavigationView.MenuItems>
-            
-            <ListView x:Name="listView" Height="500" Width="300" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,50,0,0">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="local:Drive">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
-                                <TextBlock Text="{x:Bind Path=Title}" Margin="0,0,0,0" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}" />
-                                <TextBlock Text="{x:Bind Path=Type}" Margin="20,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
-                            </StackPanel>
-                            <TextBlock Text="{x:Bind Path=Filesystem}" Margin="0,5,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
-                            <ProgressBar CornerRadius="0" Margin="0,5,0,8" Value="{x:Bind Path=FreeSpace}" Maximum="100" Width="300" Height="5"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Grid>
+                <StackPanel Orientation="Vertical">
+                    <ListView x:Name="listView" Width="300" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,10,0,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:Drive">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
+                                        <TextBlock Text="{x:Bind Path=Title}" HorizontalAlignment="Left" Margin="0,0,0,0" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}" />
+                                        <TextBlock Text="{x:Bind Path=Type}" HorizontalAlignment="Right" Margin="20,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{x:Bind Path=Filesystem}" Margin="0,5,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
+                                    <ProgressBar CornerRadius="0" Margin="0,5,0,8" Value="{Binding Path=FreeSpace}" Maximum="100" Width="300" Height="5"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,12,0,0" Content="Обновить список" Click="RefreshList"/>
+                    <Button Margin="30,12,0,0" Content="Test Toast" Click="Button_Click"/>
+                </StackPanel>
+            </Grid>
         </muxc:NavigationView>
     </Grid>
 </Page>

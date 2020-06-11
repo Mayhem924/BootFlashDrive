@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -27,6 +31,14 @@ namespace BootFlashDrive
             this.InitializeComponent();
             Drives = new List<Drive>();
             RefreshList(this, null);
+
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+        }
+
+        public string GetAppTitleFromSystem()
+        {
+            return Windows.ApplicationModel.Package.Current.DisplayName;
         }
 
         private async void RefreshList(object sender, RoutedEventArgs e)
@@ -34,16 +46,14 @@ namespace BootFlashDrive
             listView.Items.Clear();
 
             DriveInfo[] drives = DriveInfo.GetDrives();
-            Random random = new Random();
             
             foreach (var localDrive in drives)
             {
                 try
                 {
-                    if (true) // IsReady issue
+                    if (true) // TODO IsReady issue
                     {
-                        //var drive = new Drive(localDrive.Name, localDrive.DriveFormat, localDrive.TotalFreeSpace);
-                        var drive = new Drive(localDrive.Name, localDrive.DriveType.ToString(), "NTFS", random.Next(100));
+                        var drive = new Drive(localDrive);
                         Drives.Add(drive);
                         listView.Items.Add(drive); 
                     }
@@ -67,6 +77,37 @@ namespace BootFlashDrive
                 }
                 
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ToastContent content = new ToastContent()
+            {
+                Visual = new ToastVisual()
+                {
+                    BindingGeneric = new ToastBindingGeneric()
+                    {
+                        Children =
+            {
+                new AdaptiveText()
+                {
+                    Text = "Test toast"
+                },
+
+                new AdaptiveProgressBar()
+                {
+                    Title = "Windows ISO Image",
+                    Value = 0.5,
+                    ValueStringOverride = "50%",
+                    Status = "Downloading..."
+                }
+            }
+                    }
+                }
+            };
+
+            var toast = new ToastNotification(content.GetXml());
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
     }
 }
