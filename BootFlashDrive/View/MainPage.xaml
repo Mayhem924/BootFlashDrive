@@ -45,12 +45,12 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="local:Drive">
                                 <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,8,0,0">
                                         <TextBlock Text="{x:Bind Path=Title}" HorizontalAlignment="Left" Margin="0,0,0,0" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}" />
                                         <TextBlock Text="{x:Bind Path=Type}" HorizontalAlignment="Right" Margin="20,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
                                     </StackPanel>
                                     <TextBlock Text="{x:Bind Path=Filesystem}" Margin="0,5,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
-                                    <ProgressBar CornerRadius="0" Margin="0,5,0,8" Value="{Binding Path=FreeSpace}" Maximum="100" Width="300" Height="5"/>
+                                    <ProgressBar CornerRadius="0" Margin="0,5,0,10" Value="{Binding Path=FreeSpace}" Maximum="100" Width="300" Height="5"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
